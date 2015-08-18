@@ -1,0 +1,30 @@
+<!--  @see http://cxan.org/faq#add-pkg  -->
+<repo abbrev="async">
+  <pkg abbrev="async" id="http://quodatum.github.io/async">
+    <name>http://quodatum.github.io/async</name>
+    <abstract>Run background tasks</abstract>
+    <author id="abunce">Andy Bunce</author>
+    <maintainer id="abunce">Andy Bunce</maintainer>
+    <category id="libs">Libraries</category>
+    <home></home>
+    <tag>task</tag>
+    <tag>background</tag>
+    <tag>schedule</tag>
+    <version num="0.0.5">
+      <dependency processor="basex"/>
+      <file name="ex-dotml-0.0.5.xar" role="pkg"/>
+    </version>
+    <version num="0.0.6">
+      <!-- generated: {fn:current-dateTime()} -->
+    </version>
+    <version num="0.0.7">
+      <!-- generated: {fn:current-dateTime()} -->
+    </version>
+    <version num="0.0.8">
+      <!-- generated: {fn:current-dateTime()} -->
+    </version>
+    <version num="0.0.9">
+      <!-- generated: {fn:current-dateTime()} -->
+    </version>
+  </pkg>
+</repo>

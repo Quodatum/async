@@ -1,0 +1,10 @@
+<package xmlns="http://cxan.org/ns/package" id="sync">
+	<abstract>Run background XQuery tasks. </abstract>
+	<author id="abunce">Andy Bunce</author>
+	<maintainer id="abunce">Andy Bunce</maintainer>
+	<home>http://quodatum.github.io/async</home>
+	<category id="libs">Library</category>
+	<tag>task</tag>
+	<tag>background</tag>
+	<tag>schedule</tag>
+</package>
