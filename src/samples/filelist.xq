@@ -1,8 +1,8 @@
 (: async test :)
-import module namespace async = 'quodatum.async' at "async.xqm";
+import module namespace async = 'quodatum.async';
 
 let $xq:='
-let $a:="C:\tfs"!file:list(.)!<file name="{.}"/>
+let $a:="C:\tmp"!file:list(.)!<file name="{.}"/>
 return db:replace("!ASYNC","dir.xml",<foo>{$a}</foo>)
 '
 
@@ -10,4 +10,4 @@ return db:replace("!ASYNC","dir.xml",<foo>{$a}</foo>)
 let $fut2:=async:submit(async:futureTask($xq))
 
 let $_:=async:shutdown()
-return map{"a":$async:Executor}
+return $fut2

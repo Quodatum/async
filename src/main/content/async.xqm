@@ -11,7 +11,7 @@ declare namespace sf="java.util.concurrent.ScheduledFuture";
 declare namespace jsync="java:org.apb.modules.Async";
 
 declare variable $async:THREADS:=xs:int(1);
-declare variable $async:Executor:=Executor:new($async:THREADS);
+declare variable $async:Executor:=Q{java:org.apb.modules.ExecutorSingleton}getInstance();
 
 (:~  
  : create submitable object to run query
@@ -27,12 +27,17 @@ declare function async:futureTask($xq as xs:string,$opts as map(*))
   jsync:futureTask($xq)
 };
 
+(:~
+ : submit a task
+ : @param $ft a futureTask
+ :)
 declare function async:submit($ft)
 {
   Executor:submit($async:Executor, $ft)
 };
 
-(:~ 
+(:~
+: @return info about Executor state 
  : java.util.concurrent.ScheduledThreadPoolExecutor@20a9578a[Shutting down, pool size = 1, active threads = 1, queued tasks = 9, completed tasks = 0]
  :)
 declare function async:info() as xs:string

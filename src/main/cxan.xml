@@ -1,4 +1,4 @@
-<package xmlns="http://cxan.org/ns/package" id="sync">
+<package xmlns="http://cxan.org/ns/package" id="async">
 	<abstract>Run background XQuery tasks. </abstract>
 	<author id="abunce">Andy Bunce</author>
 	<maintainer id="abunce">Andy Bunce</maintainer>
