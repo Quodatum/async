@@ -1,5 +1,5 @@
 (: async test :)
-import module namespace async = 'quodatum.async' at "async.xqm";
+import module namespace async = 'com.quodatum.async';
 
 let $xq:="
 declare variable $state as element(state):=doc('doc-doc/state.xml')/state;

@@ -4,7 +4,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 public class ExecutorSingleton {
 	private static ScheduledThreadPoolExecutor instance = null;
-	private static int threads=1; 
+	private static int poolSize=1; 
 	protected ExecutorSingleton() {
 	}
  
@@ -14,14 +14,14 @@ public class ExecutorSingleton {
 			// Thread Safe. Might be costly operation in some case
 			synchronized (ExecutorSingleton.class) {
 				if (instance == null) {
-					instance = new ScheduledThreadPoolExecutor(threads);
+					instance = new ScheduledThreadPoolExecutor(poolSize);
 				}
 			}
 		}
 		return instance;
 	}
-	public static void threads(int newThreads){
-		threads=newThreads;
+	public static void poolSize(int newSize){
+		poolSize=newSize;
 		if(instance != null){
 			instance.shutdownNow();
 			instance=null;

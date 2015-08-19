@@ -1,5 +1,5 @@
 (: async test :)
-import module namespace async = 'quodatum.async';
+import module namespace async = 'com.quodatum.async';
 
 let $xq:='
 let $a:="C:\tmp"!file:list(.)!<file name="{.}"/>

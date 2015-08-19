@@ -1,7 +1,7 @@
 (: async test
  :)
 declare namespace Executor="java.util.concurrent.ScheduledThreadPoolExecutor";
-declare namespace async="java:org.apb.modules.Async";
+declare namespace async="java:com.quodatum.async.Async";
 declare namespace ft="java.util.concurrent.FutureTask";
 declare variable $THREADS:=xs:int(1);
 declare variable $shed:=Executor:new($THREADS);

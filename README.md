@@ -3,17 +3,19 @@
 A very experimental asynchronous XQuery execution 
 
 ````
-Q{java:org.apb.modules.ExecutorSingleton}getInstance()
+Q{java:com.quodatum.async.ExecutorSingleton}getInstance()
 ````
 
 Background task experiments. See `shed.xq`
 
-### runnable
+### futureTask
 
 ````
-declare namespace async="java:org.apb.modules.Async";
+declare namespace async="java:com.quodatum.async.Async";
 
 async:futureTask("2+2")
+
+async:submit($futureTask)
 ````
 
 ### timeUnit
