@@ -1,4 +1,4 @@
 <package xmlns="http://www.basex.org/modules/pkg">
-   <jar>jx-extras-0.2.12.jar</jar>
-   <class>org.apb.modules.Async</class>
+   <jar>quodatum-async-0.0.4.jar</jar>
+   <class>com.quodatum.async.ExecutorSingleton</class>
 </package>

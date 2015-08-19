@@ -1,10 +1,13 @@
 # Async
 
+A very experimental asynchronous XQuery execution 
+
 ````
 Q{java:org.apb.modules.ExecutorSingleton}getInstance()
 ````
 
 Background task experiments. See `shed.xq`
+
 ### runnable
 
 ````
