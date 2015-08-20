@@ -2,11 +2,15 @@
 
 A very experimental asynchronous XQuery execution. Packaged in the EXpath `xar` format. Async is built from an XQuery module and a java jar package. 
 
-````
-Q{java:com.quodatum.async.ExecutorSingleton}getInstance()
-````
+## Usage
+````xquery
+(: async test :)
+import module namespace async = 'com.quodatum.async';
 
-Background task experiments. See `shed.xq`
+let $xq:='2+3'
+let $fut2:=async:submit(async:futureTask($xq))
+return ($fut2,async:info())
+````
 
 ## Logging
 Entries are written to the BaseX log for execution start and end
