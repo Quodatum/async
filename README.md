@@ -1,6 +1,6 @@
 # Async
 
-A very experimental asynchronous XQuery execution 
+A very experimental asynchronous XQuery execution. Packaged in the EXpath `xar` format. Async is built from an XQuery module and a java jar package. 
 
 ````
 Q{java:com.quodatum.async.ExecutorSingleton}getInstance()
@@ -8,6 +8,14 @@ Q{java:com.quodatum.async.ExecutorSingleton}getInstance()
 
 Background task experiments. See `shed.xq`
 
+## Logging
+Entries are written to the BaseX log for execution start and end
+````
+21:44:16.647    ASYNC   admin   INFO    STARTED: let $a:="C:\tmp"!file:list(.)!<file name="{.}"/> return db:replace("!ASYNC","dir.xml",<foo>{$a}</foo>)
+21:44:16.693    ASYNC   admin   INFO    ENDED   40.91 ms
+````
+
+## API
 ### futureTask
 
 ````

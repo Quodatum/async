@@ -16,6 +16,8 @@ import org.basex.core.users.UserText;
 import org.basex.query.QueryException;
 import org.basex.query.QueryProcessor;
 import org.basex.query.value.Value;
+import org.basex.server.Log;
+import org.basex.util.Performance;
 
 
 public class CallableQuery implements Callable<Value> {
@@ -33,7 +35,8 @@ public class CallableQuery implements Callable<Value> {
 	@Override
 	public Value call() throws QueryException {
 		try {
-			started = new Date();
+			log( "STARTED: "+xquery,null);
+			Performance perf=new Performance();
 			// Create a query processor
 			@SuppressWarnings("resource")
 			QueryProcessor proc = new QueryProcessor(xquery, ctx);
@@ -43,16 +46,20 @@ public class CallableQuery implements Callable<Value> {
 			// Print result as string.
 			// System.out.println("result----------------");
 			// System.out.println(value);
-			doAfter(ctx);
+			log("ENDED", perf);
+			//doAfter(ctx);
 			return value;
 
 		} catch (Exception ex) {
 			// @TODO raise good error
 			System.out.println(ex.getMessage());
+			log( "ERROR: "+xquery,null);
 			throw new QueryException(ex.getMessage());
 		}
 	}
-
+	private void log(String msg,Performance perf){
+		ctx.log.write("ASYNC", ctx.user(), Log.LogType.INFO, msg, perf);
+	}
 	private void doAfter(Context ctx) {
 		// TODO Auto-generated method stub
 		String xq="declare variable $v as xs:string external:='test2';admin:write-log($v, 'TASK')";

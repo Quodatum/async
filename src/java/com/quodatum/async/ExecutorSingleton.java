@@ -2,9 +2,12 @@ package com.quodatum.async;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
-public class ExecutorSingleton {
+import org.basex.query.QueryModule;
+import org.basex.query.QueryResource;
+
+public class ExecutorSingleton extends QueryModule implements QueryResource{
 	private static ScheduledThreadPoolExecutor instance = null;
-	private static int poolSize=1; 
+	private static int poolSize=1;
 	protected ExecutorSingleton() {
 	}
  
@@ -15,6 +18,7 @@ public class ExecutorSingleton {
 			synchronized (ExecutorSingleton.class) {
 				if (instance == null) {
 					instance = new ScheduledThreadPoolExecutor(poolSize);
+
 				}
 			}
 		}
@@ -29,5 +33,11 @@ public class ExecutorSingleton {
 	}
 	public static String status(){
 		return instance.toString();
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -4,7 +4,7 @@
  :)
 module namespace page = 'http://basex.org/modules/web-page';
 import module namespace session = "http://basex.org/modules/session";
-import module namespace async = 'quodatum.async';  
+import module namespace async = 'com.quodatum.async';  
 
 (:~
  : This function generates the welcome page.
