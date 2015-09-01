@@ -43,9 +43,9 @@ declare function async:submit($ft)
  : @param $ft a futureTask
  : @param $delay e.g. xs:dayTimeDuration('PT30.5S')
  :)
-declare function async:schedule($ft,$delay as xs:duration)
+declare function async:schedule($ft,$delay as xs:dayTimeDuration)
 {
-  let $waitms := 1000* fn:seconds-from-duration($delay)
+  let $waitms := 1000* ($delay div xs:dayTimeDuration('PT1S'))
   return Executor:schedule($async:Executor, $ft,xs:int($waitms),jsync:timeUnit("MILLISECONDS"))
 };
 

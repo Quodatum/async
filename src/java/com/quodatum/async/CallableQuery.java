@@ -55,7 +55,7 @@ public class CallableQuery implements Callable<Value> {
 			// System.out.println("result----------------");
 			// System.out.println(value);
 			log(Log.LogType.INFO,"ENDED", perf);
-			onFulfilled(ctx);
+			onFulfilled();
 			return value;
 
 		} catch (Exception ex) {
@@ -77,19 +77,19 @@ public class CallableQuery implements Callable<Value> {
 	
 	
 	// called after successful call
-	private void onFulfilled(Context ctx) {
+	private void onFulfilled() {
 		String xq="2+3";
-		
+		log(Log.LogType.INFO,"FULFILLED", null);
 		// Execute the query
 		try {
 			@SuppressWarnings("resource")
-			QueryProcessor proc = new QueryProcessor(xq, ctx);
+			QueryProcessor proc = new QueryProcessor(xq, this.ctx);
 			proc.bind("start", started);
 			Value value = proc.value();
 			value.serialize();
-		} catch (QueryException e) {
-		} catch (QueryIOException e) {
-		}
+		} catch (Exception e) {
+			log(Log.LogType.ERROR, "FULFILLED: "+e.getMessage(),null);
+		} 
 		
 	}
 	private void onRejected(Context ctx) {

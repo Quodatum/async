@@ -7,8 +7,8 @@ declare function local:prime($n){
 };
 (1 to 100000)[local:prime(.)]=>count()
 "
-let $fts:=(1 to 3)!async:futureTask($xq)
-let $sft:= $fts!async:schedule(.,xs:duration("PT30S"))
+let $fts:=(1 to 1)!async:futureTask($xq)
+let $sft:= $fts!async:schedule(.,xs:dayTimeDuration("PT1M"))
 
 (: let $_:=async:shutdown() :)
 return ($sft!async:task-info(.),
