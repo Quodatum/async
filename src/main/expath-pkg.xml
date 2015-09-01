@@ -1,5 +1,5 @@
 <package xmlns="http://expath.org/ns/pkg" name="http://quodatum.github.io/async"
-	abbrev="async" version="0.0.7" spec="1.0">
+	abbrev="async" version="0.0.9" spec="1.0">
 	<title>Run background tasks</title>
 	<xquery>
 		<namespace>com.quodatum.async</namespace>

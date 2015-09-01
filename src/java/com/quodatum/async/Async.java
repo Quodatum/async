@@ -9,6 +9,7 @@ package com.quodatum.async;
  * 
  */
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.basex.core.Context;
@@ -34,5 +35,12 @@ public class Async extends QueryModule {
 		return new FutureTask<Value>(new CallableQuery(context,xquery));
 	}
 
+	/*
+	 * queue of tasks
+	 */
+	@Requires(Permission.ADMIN)
+	public static Object[]  queue() {
+		return ExecutorSingleton.getInstance().getQueue().toArray();
+	}
 	
 }

@@ -1,5 +1,14 @@
 package com.quodatum.async;
-
+/**
+ * This class provides a ThreadPoolExecutor
+ * 
+ *
+ * @copyright Quodatum
+ * @licence BSD
+ * @author andy bunce
+ * @since aug 2015
+ * 
+ */
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import org.basex.query.QueryModule;

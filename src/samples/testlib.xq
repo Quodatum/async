@@ -2,16 +2,15 @@
 import module namespace async = 'com.quodatum.async';
 
 let $xq:="
-declare variable $state as element(state):=doc('doc-doc/state.xml')/state;
-
-(
-  replace value of node $state/hits with 1+$state/hits,
-db:output(1+$state/hits)
-)
+declare function local:prime($n){
+  $n = 2 or ($n > 2 and (every $d in 2 to xs:integer(math:sqrt($n)) satisfies $n mod $d > 0))
+};
+(1 to 100000)[local:prime(.)]=>count()
 "
+let $fts:=(1 to 3)!async:futureTask($xq)
+let $sft:= $fts!async:schedule(.,xs:duration("PT30S"))
 
-
-let $fut2:= (1 to 10000)!async:submit(async:futureTask($xq))
-
-let $_:=async:shutdown()
-return async:info()
+(: let $_:=async:shutdown() :)
+return ($sft!async:task-info(.),
+        async:info()
+      )

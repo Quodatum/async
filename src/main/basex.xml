@@ -1,4 +1,4 @@
 <package xmlns="http://www.basex.org/modules/pkg">
-   <jar>quodatum-async-0.0.7.jar</jar>
+   <jar>quodatum-async-0.0.9.jar</jar>
    <class>com.quodatum.async.Async</class>
 </package>

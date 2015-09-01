@@ -21,19 +21,49 @@ declare function async:futureTask($xq as xs:string)
   jsync:futureTask($xq)
 };
 
-
+(:~ 
+ : @return futuretask to run xquery, opts currenly ignored
+ :)
 declare function async:futureTask($xq as xs:string,$opts as map(*))
 {
   jsync:futureTask($xq)
 };
 
 (:~
- : submit a task
+ : submit a task returns a future
  : @param $ft a futureTask
  :)
 declare function async:submit($ft)
 {
   Executor:submit($async:Executor, $ft)
+};
+
+(:~
+ : schedule a task to run after delay returns a future
+ : @param $ft a futureTask
+ : @param $delay e.g. xs:dayTimeDuration('PT30.5S')
+ :)
+declare function async:schedule($ft,$delay as xs:duration)
+{
+  let $waitms := 1000* fn:seconds-from-duration($delay)
+  return Executor:schedule($async:Executor, $ft,xs:int($waitms),jsync:timeUnit("MILLISECONDS"))
+};
+
+(:~
+ : schedule a task to run after delay returns a future
+ : @param $ft a futureTask
+ : @param $delay e.g. xs:dayTimeDuration('PT30.5S')
+ :)
+declare function async:scheduleAtFixedRate($ft,$delay as xs:duration,$period as xs:duration)
+{
+  let $delayMs := 1000* ($delay div xs:dayTimeDuration('PT1S'))
+  let $periodMs := 1000*($period  div xs:dayTimeDuration('PT1S'))
+  return Executor:scheduleAtFixedRate(
+		$async:Executor, 
+		$ft,
+		xs:int($delayMs),
+		xs:int($periodMs),
+		jsync:timeUnit("MILLISECONDS"))
 };
 
 (:~
@@ -52,7 +82,25 @@ declare function async:shutdown(){
   Executor:shutdown($async:Executor)
 };
 
-declare function async:task-info($task) as xs:string
+(:~  
+ : info about a task
+ :)
+declare function async:task-info($task) as element(task)
 {
-   out:format("task $s - canceled:%b, done:%b","?",sf:isCancelled($task), sf:isDone($task))
+   let $id:=substring-after($task,"$")
+   let $delay:=sf:getDelay($task,jsync:timeUnit("MILLISECONDS"))
+   return <task id="{$id}"
+                canceled="{ sf:isCancelled($task)}"
+                done="{sf:isDone($task)}"
+                delay="{$delay}" 
+                periodic="?" />
+                  
+};
+
+(:~  
+ : cancel a task
+ :)
+declare function async:task-cancel($sf,$mayInterruptIfRunning as xs:boolean) as xs:boolean
+{
+   sf:cancel($sf,$mayInterruptIfRunning)
 };

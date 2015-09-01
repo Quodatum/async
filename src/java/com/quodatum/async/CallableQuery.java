@@ -1,7 +1,9 @@
 package com.quodatum.async;
 
-/*
- * Async query utilities
+/**
+ * This class provides a callable  execution of QueryProcessor
+ * (attribute values, text contents, full-texts).
+ *
  * @copyright Quodatum
  * @licence BSD
  * @author andy bunce
@@ -14,9 +16,13 @@ import java.util.concurrent.Callable;
 import org.basex.core.Context;
 import org.basex.core.users.UserText;
 import org.basex.query.QueryException;
+import org.basex.query.QueryIOException;
 import org.basex.query.QueryProcessor;
 import org.basex.query.value.Value;
+import org.basex.query.value.ValueBuilder;
+import org.basex.query.value.node.FElem;
 import org.basex.server.Log;
+import org.basex.server.Log.LogType;
 import org.basex.util.Performance;
 
 
@@ -25,17 +31,19 @@ public class CallableQuery implements Callable<Value> {
 	private Context ctx;
 	public Date started;
 	public Date ended;
-
+	
 	public CallableQuery( Context context,String xquery) {
 		this.xquery = xquery;
 		this.ctx = new Context(context);
 		this.ctx.user(ctx.users.get(UserText.ADMIN));
+		
 	}
 
 	@Override
-	public Value call() throws QueryException {
+	public Value call()  {
+		Boolean error=false;
 		try {
-			log( "STARTED: "+xquery,null);
+			log(Log.LogType.INFO, "STARTED: "+xquery,null);
 			Performance perf=new Performance();
 			// Create a query processor
 			@SuppressWarnings("resource")
@@ -46,32 +54,45 @@ public class CallableQuery implements Callable<Value> {
 			// Print result as string.
 			// System.out.println("result----------------");
 			// System.out.println(value);
-			log("ENDED", perf);
-			//doAfter(ctx);
+			log(Log.LogType.INFO,"ENDED", perf);
+			onFulfilled(ctx);
 			return value;
 
 		} catch (Exception ex) {
 			// @TODO raise good error
+			error=true;
 			System.out.println(ex.getMessage());
-			log( "ERROR: "+xquery,null);
-			throw new QueryException(ex.getMessage());
-		}
+			log(Log.LogType.ERROR, "ERROR: "+ex.getMessage(),null);
+			FElem elem2 = new FElem("eror");
+			ValueBuilder vb = new ValueBuilder();
+			vb.add(elem2);
+			return vb.value();
+		} 
 	}
-	private void log(String msg,Performance perf){
-		ctx.log.write("ASYNC", ctx.user(), Log.LogType.INFO, msg, perf);
+	
+	private void log(LogType type, String msg,Performance perf){
+		 String id=this.toString();
+		ctx.log.write("ASYNC", ctx.user(), Log.LogType.INFO, id + " "+msg, perf);
 	}
-	private void doAfter(Context ctx) {
-		// TODO Auto-generated method stub
-		String xq="declare variable $v as xs:string external:='test2';admin:write-log($v, 'TASK')";
+	
+	
+	// called after successful call
+	private void onFulfilled(Context ctx) {
+		String xq="2+3";
 		
 		// Execute the query
 		try {
 			@SuppressWarnings("resource")
 			QueryProcessor proc = new QueryProcessor(xq, ctx);
 			proc.bind("start", started);
-			proc.value();
+			Value value = proc.value();
+			value.serialize();
 		} catch (QueryException e) {
+		} catch (QueryIOException e) {
 		}
 		
+	}
+	private void onRejected(Context ctx) {
+//@todo
 	}
 }
