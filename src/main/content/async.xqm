@@ -97,6 +97,14 @@ declare function async:task-info($task) as element(task)
                   
 };
 
+(:~
+ : sequence of task descriptors
+ :)
+ declare function async:queue() as element(task)*
+{
+    jsync:queue()!async:task-info(.)
+};
+
 (:~  
  : cancel a task
  :)

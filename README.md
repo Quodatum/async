@@ -10,7 +10,19 @@ A very experimental asynchronous XQuery execution. Packaged in the EXpath `xar` 
 !repo:install(.)
 ````
 
-NOTE: It works much better if the jar file is then copied to the BaseX `lib` folder.
+NOTE: It works much better if the jar file is then copied to the BaseX `lib` folder. As this gives a persistant scheduler.
+
+## Scope
+The following features are implemented or planned
+
+1. Execute XQuery string $xq asynchronously [DONE}
+1. specify XQuery string to be executed on successfull execution of $xq [TODO]
+1. specify XQuery string to be executed on failure of execution of $xq [TODO]
+1. specify delay before execution of $xq [DONE]
+1. list active tasks [DONE]
+1  cancel active task
+1. shutdown all tasks
+
 
 ## Usage
 ````xquery
@@ -32,6 +44,7 @@ return ($sft!async:task-info(.),
       )
 ````
 
+`samples/async/async-html.xqm` is a basic restxq demo.
 ## Logging
 Entries are written to the BaseX log for execution start and end
 ````
