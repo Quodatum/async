@@ -12,19 +12,7 @@
     <tag>schedule</tag>
     <version num="0.0.5">
       <dependency processor="basex"/>
-      <file name="ex-dotml-0.0.5.xar" role="pkg"/>
-    </version>
-    <version num="0.0.6">
-      <!-- generated: {fn:current-dateTime()} -->
-    </version>
-    <version num="0.0.7">
-      <!-- generated: {fn:current-dateTime()} -->
-    </version>
-    <version num="0.0.8">
-      <!-- generated: {fn:current-dateTime()} -->
-    </version>
-    <version num="0.0.9">
-      <!-- generated: {fn:current-dateTime()} -->
+      <file name="quodatum-async-0.1.0.xar" role="pkg"/>
     </version>
   </pkg>
 </repo>

@@ -39,6 +39,7 @@ declare
     <body>
      <div>{$info}</div>
      <button onclick="location.reload(true);">Reload</button>
+     <a href="async/logs" target="logs">logs</a>
 	 <div classs="container-fluid">
 	  <div class="col-md-8">
       <h2>Tasks</h2>
@@ -50,7 +51,7 @@ declare
         	<div class="form-group">
         		<label for="style">Task style</label>	 
         		 <select name="style" class="form-control">
-        			  <option value="submit">submit 10000</option>
+        			  <option value="submit">submit</option>
         			  <option value="schedule">schedule after (30.5 seconds)</option>
         			  <option value="fixedrate">fixedrate</option>
         		</select>
@@ -60,6 +61,12 @@ declare
                 <input type="number" class="form-control" id="size" name="size" value="1" placeholder="number of tasks"/>
              </div>
     	   <button type="submit" >Run</button> 
+    	   <textarea name="xq" rows="10">
+declare variable $state as element(state):=doc('doc-doc/state.xml')/state;
+(
+  replace value of node $state/hits with 1+$state/hits,
+db:output(1+$state/hits)
+)</textarea>
     	  </form>
 	 
 	  </div>
@@ -87,3 +94,11 @@ declare
 			   
 	return 	web:redirect(web:create-url('/async', map { 'style': $style }))
 };
+
+declare 
+  %rest:path("async/logs")
+  %rest:method("GET")
+  function page:log()
+{
+<logs>{admin:logs(admin:logs()[last()])[@address="ASYNC"]}</logs> 
+}; 

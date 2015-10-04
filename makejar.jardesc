@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
 <jardesc>
-    <jar path="async/src/main/content/quodatum-async-0.0.10.jar"/>
+    <jar path="async/src/main/content/quodatum-async-0.1.2.jar"/>
     <options buildIfNeeded="true" compress="true" descriptionLocation="/async/makejar.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
@@ -11,9 +11,6 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
-        <file path="/async/package.xml"/>
-        <file path="/async/README.md"/>
         <javaElement handleIdentifier="=async/src\/java"/>
-        <file path="/async/LICENSE"/>
     </selectedElements>
 </jardesc>

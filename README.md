@@ -15,13 +15,13 @@ NOTE: It works much better if the jar file is then copied to the BaseX `lib` fol
 ## Scope
 The following features are implemented or planned
 
-1. Execute XQuery string $xq asynchronously [DONE}
-1. specify XQuery string to be executed on successfull execution of $xq [TODO]
-1. specify XQuery string to be executed on failure of execution of $xq [TODO]
-1. specify delay before execution of $xq [DONE]
-1. list active tasks [DONE]
-1  cancel active task
-1. shutdown all tasks
+1. [x] Execute XQuery string $xq asynchronously 
+1. [x] specify XQuery string to be executed on successful execution of $xq 
+1. [x] specify XQuery string to be executed on failure of execution of $xq 
+1. [x] specify delay before execution of $xq 
+1. [x] list active tasks 
+1. [x] cancel active task
+1. [x] shutdown all tasks
 
 
 ## Usage

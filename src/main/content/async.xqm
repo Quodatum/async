@@ -26,7 +26,12 @@ declare function async:futureTask($xq as xs:string)
  :)
 declare function async:futureTask($xq as xs:string,$opts as map(*))
 {
-  jsync:futureTask($xq)
+ if($opts?rejected) 
+ then jsync:futureTask($xq,$opts?fulfilled,$opts?rejected)
+ else 
+   if($opts?fulfilled) 
+   then jsync:futureTask($xq,$opts?fulfilled)
+   else jsync:futureTask($xq)
 };
 
 (:~
