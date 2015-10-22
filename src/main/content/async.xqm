@@ -26,12 +26,7 @@ declare function async:futureTask($xq as xs:string)
  :)
 declare function async:futureTask($xq as xs:string,$opts as map(*))
 {
- if($opts?rejected) 
- then jsync:futureTask($xq,$opts?fulfilled,$opts?rejected)
- else 
-   if($opts?fulfilled) 
-   then jsync:futureTask($xq,$opts?fulfilled)
-   else jsync:futureTask($xq)
+  jsync:futureTask($xq,$opts?fulfilled,$opts?rejected)
 };
 
 (:~
@@ -42,7 +37,15 @@ declare function async:submit($ft)
 {
   Executor:submit($async:Executor, $ft)
 };
-
+(:~
+ : set executor pool size = max threads
+ : if a prevoisly created executor exists it is shutdown. 
+ : A new one with the poolsize is created on demand
+ :)
+declare function async:pool-size($size as xs:integer)
+{
+  Q{java:com.quodatum.async.ExecutorSingleton}poolSize(xs:int($size))
+};
 (:~
  : schedule a task to run after delay returns a future
  : @param $ft a futureTask
@@ -116,4 +119,13 @@ declare function async:task-info($task) as element(task)
 declare function async:task-cancel($sf,$mayInterruptIfRunning as xs:boolean) as xs:boolean
 {
    sf:cancel($sf,$mayInterruptIfRunning)
+};
+
+(:~  
+ : return async logs for today
+ :)
+declare function async:logs() as element(entry)*
+{
+  let $f:= substring(string(current-date()),1,10)
+  return $f!admin:logs(.,false())[@address="ASYNC"] 
 };
