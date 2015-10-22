@@ -6,7 +6,7 @@ A very experimental asynchronous XQuery execution. Packaged in the EXpath `xar` 
 # Install
 
 ````
-"https://github.com/Quodatum/async/releases/download/v0.0.7/async-0.0.7.xar"
+"https://github.com/Quodatum/async/releases/download/v0.1.2/async-0.1.2.xar"
 !repo:install(.)
 ````
 
@@ -20,8 +20,8 @@ The following features are implemented or planned
 1. [x] specify XQuery string to be executed on failure of execution of $xq 
 1. [x] specify delay before execution of $xq 
 1. [x] list active tasks 
-1. [x] cancel active task
-1. [x] shutdown all tasks
+1. [ ] cancel active task
+1. [ ] shutdown all tasks
 
 
 ## Usage
@@ -36,7 +36,7 @@ declare function local:prime($n){
 (1 to 100000)[local:prime(.)]=>count()
 "
 let $fts:=(1 to 3)!async:futureTask($xq)
-let $sft:= $fts!async:schedule(.,xs:duration("PT30S"))
+let $sft:= $fts!async:schedule(.,xs:dayTimeDuration("PT30S"))
 
 (: let $_:=async:shutdown() :)
 return ($sft!async:task-info(.),
