@@ -58,11 +58,17 @@ Entries are written to the BaseX log for execution start and end
 ### futureTask
 
 ````
-declare namespace async="java:com.quodatum.async.Async";
+import module namespace async = 'com.quodatum.async';
 
-async:futureTask("2+2")
+(: todo better example :)
+let $opts:=map{
+    "fulfilled":"'went ok'",
+    "rejected":"'failed'"
+}
 
-async:submit($futureTask)
+let $futureTask:=async:futureTask("2+2",$opts)
+return async:submit($futureTask)
+ 
 ````
 
 ### timeUnit
