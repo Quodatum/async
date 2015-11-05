@@ -129,3 +129,6 @@ declare function async:logs() as element(entry)*
   let $f:= substring(string(current-date()),1,10)
   return $f!admin:logs(.,false())[@address="ASYNC"] 
 };
+declare function async:write-log($msg as xs:string){
+  jsync:writeLog($msg)
+};

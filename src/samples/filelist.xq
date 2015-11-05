@@ -6,9 +6,9 @@ let $fulfilled:="
 import module namespace async = 'com.quodatum.async';
 declare variable $value external;
 
-async:writelog('value' || $value)
+async:write-log('value' || $value)
 "
-let $future:=async:futureTask($xq,map{"fulfilled":$fulfilled})
+let $future:=async:futureTask($xq,map{"fulfilled":$fulfilled,"rejected":""})
 
 let $fut2:=async:submit($future)
 return ($fut2,async:info())
