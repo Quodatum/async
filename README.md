@@ -70,6 +70,7 @@ let $futureTask:=async:futureTask("2+2",$opts)
 return async:submit($futureTask)
  
 ````
-
+### writeLog
+`async:writeLog("hello")`
 ### timeUnit
 `async:timeUnit("SECONDS")`

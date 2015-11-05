@@ -14,6 +14,9 @@ import java.util.concurrent.TimeUnit;
 import org.basex.core.Context;
 import org.basex.query.QueryModule;
 import org.basex.query.value.Value;
+import org.basex.server.Log;
+import org.basex.server.Log.LogType;
+import org.basex.util.Performance;
 
 public class Async extends QueryModule {
 	private static Context context=new Context();
@@ -41,6 +44,10 @@ public class Async extends QueryModule {
 	@Requires(Permission.ADMIN)
 	public static FutureTask<Value> futureTask(final String xquery,final String fulfilled,final String rejected) {
 		return new FutureTask<Value>(new CallableQuery(context,xquery,fulfilled,rejected));
+	}
+	@Requires(Permission.ADMIN)
+	public void writeLog( String msg) {
+		context.log.write("ASYNC", context.user(), Log.LogType.INFO,  msg, null);
 	}
 	/*
 	 * queue of tasks
